@@ -7,6 +7,7 @@ export const Routes = () => {
     <ReactRouterRoutes>
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="*" element={<SignInPage />} />
     </ReactRouterRoutes>
   );
 };

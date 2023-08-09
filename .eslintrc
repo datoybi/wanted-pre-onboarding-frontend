@@ -8,7 +8,7 @@
     }
   },
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "react/jsx-uses-vars": "error"
   },
   "ignorePatterns": ["*.config.js"]

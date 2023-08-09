@@ -1,11 +1,15 @@
 import { Routes } from 'pages/App/Routes';
 import { PageLayout } from 'pages/App/PageLayout';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
   return (
-    <PageLayout>
-      <Routes />
-    </PageLayout>
+    <>
+      <CssBaseline />
+      <PageLayout>
+        <Routes />
+      </PageLayout>
+    </>
   );
 }
 

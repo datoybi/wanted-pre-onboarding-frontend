@@ -6,11 +6,10 @@ export function PageLayout({ children }: { children: ReactNode }) {
   return (
     <div
       css={css`
-        /* background: '#f5f5f5'; */
-        background: red;
+        background: '#f5f5f5';
       `}
     >
-      <div>{children}</div>
+      <Container>{children}</Container>
     </div>
   );
 }

@@ -12,7 +12,7 @@ function Button(props: Props) {
   const { type = 'primary', size = 'small', disabled, className, children, ...rest } = props;
 
   return (
-    <button className={`button button--type-${type} button--size-${size}`} {...rest}>
+    <button className={`button button--type-${type} button--size-${size}`} disabled={!disabled} {...rest}>
       <span className="button__content">{children}</span>
     </button>
   );

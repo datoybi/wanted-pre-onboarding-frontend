@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import Container from 'components/Container';
+import Container from 'components/UI/Container';
 import { ReactNode } from 'react';
 
 export function PageLayout({ children }: { children: ReactNode }) {

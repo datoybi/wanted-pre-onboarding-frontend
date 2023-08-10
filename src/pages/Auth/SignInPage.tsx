@@ -8,7 +8,7 @@ export default function SignInPage() {
       <form className="form form__login">
         <input type="text" data-testid="email-input" className="input width-100" placeholder="email" />
         <Spacing size={50} />
-        <input type="text" data-testid="password-input" className="input width-100" placeholder="password" />
+        <input type="password" data-testid="password-input" className="input width-100" placeholder="password" />
         <Spacing size={50} />
         <Button data-testid="signin-button" size="big">
           로그인

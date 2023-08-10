@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Title, Spacing, Button } from 'components/UI';
 import TodoItem from 'components/Todo/TodoItem';
 
 export default function TodoListPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem('jwt-token')) {
+      navigate(`/signin`);
+      return;
+    }
+  }, [navigate]);
+
   return (
     <>
       <Title>todos</Title>
@@ -14,6 +26,16 @@ export default function TodoListPage() {
       </form>
       <Spacing size={30} />
       <ul className="ul">
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
         <TodoItem />
         <TodoItem />
         <TodoItem />

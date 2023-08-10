@@ -1,13 +1,30 @@
+// @ts-nocheck
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
+import { signup } from 'utils/remotes';
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
   const { isValid } = useValidation(form);
+  const isDisabled = isValid.isEmail && isValid.isPassword ? false : true;
+
+  const handleOnSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const { statusCode, message } = await signup(form.email, form.password);
+
+    if (statusCode) {
+      alert(message);
+    } else {
+      alert('회원가입되었습니다.');
+      navigate('/signin');
+    }
+  };
 
   return (
     <>
@@ -30,7 +47,7 @@ export default function SignUpPage() {
           onChange={e => setForm({ ...form, password: e.target.value })}
         />
         <Spacing size={50} />
-        <Button data-testid="signup-button" size="big" disabled={isValid.isEmail && isValid.isPassword}>
+        <Button data-testid="signup-button" size="big" disabled={isDisabled} onClick={handleOnSubmit}>
           회원가입
         </Button>
       </form>

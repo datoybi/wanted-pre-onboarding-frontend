@@ -9,7 +9,7 @@ export const Routes = () => {
       <Route path="/todo" element={<TodoListPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="*" element={<TodoListPage />} />
+      <Route path="*" element={<SignInPage />} />
     </ReactRouterRoutes>
   );
 };

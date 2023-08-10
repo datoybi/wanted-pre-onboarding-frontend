@@ -11,7 +11,8 @@ export default function Title({ children }: Props) {
       css={css`
         font-size: 7rem;
         font-weight: 300;
-        color: '#333';
+        color: #333;
+        margin-top: 60px;
       `}
     >
       {children}

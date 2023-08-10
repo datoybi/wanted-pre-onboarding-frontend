@@ -6,6 +6,7 @@ import TodoListPage from 'pages/Todo/TodoListPage';
 export const Routes = () => {
   return (
     <ReactRouterRoutes>
+      <Route path="/todo" element={<TodoListPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="*" element={<TodoListPage />} />

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
 import { signup } from 'utils/remotes';
-import { INITIAL_AUTH } from 'utils/constants';
+import { INITIAL_AUTH, JWT_KEY } from 'utils/constants';
 import { AuthForm } from 'types';
 
 export default function SignUpPage() {
@@ -11,6 +11,12 @@ export default function SignUpPage() {
   const [form, setForm] = useState<AuthForm>(INITIAL_AUTH);
   const { isValid } = useValidation(form);
   const isDisabled = isValid.isEmail && isValid.isPassword ? false : true;
+
+  useEffect(() => {
+    if (localStorage.getItem(JWT_KEY)) {
+      navigate(`/todo`);
+    }
+  }, [navigate]);
 
   const handleOnSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

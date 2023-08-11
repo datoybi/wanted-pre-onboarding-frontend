@@ -45,3 +45,11 @@ export async function getTodos() {
   const data = await http.get(`todos`, { headers: { Authorization: `Bearer ${localStorage.getItem('jwt-token')}` } });
   return data;
 }
+
+export async function deleteTodo(id: string) {
+  const data = await http.delete(`/todos/${id}`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('jwt-token')}` },
+  });
+  console.log(data);
+  return data;
+}

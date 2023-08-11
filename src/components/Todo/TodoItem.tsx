@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 import { Button } from 'components/UI';
+import { deleteTodo } from 'utils/remotes';
 
-export default function TodoItem({ isCompleted, todo }: any) {
+export default function TodoItem({ id, isCompleted, todo, deleteTodos }: any) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const handleUpdate = () => {
     setIsUpdate(prev => !prev);
+  };
+
+  const handleDelete = async () => {
+    await deleteTodo(id);
+    deleteTodos(id);
   };
 
   const showTodoElement = (
@@ -24,7 +30,7 @@ export default function TodoItem({ isCompleted, todo }: any) {
         <Button data-testid="modify-button" type="light" onClick={handleUpdate}>
           수정
         </Button>
-        <Button data-testid="delete-button" type="danger">
+        <Button data-testid="delete-button" type="danger" onClick={handleDelete}>
           삭제
         </Button>
       </div>

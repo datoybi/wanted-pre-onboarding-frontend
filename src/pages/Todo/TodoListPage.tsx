@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Title, Spacing } from 'components/UI';
+import { Title } from 'components/UI';
 import TodoItem from 'components/Todo/TodoItem';
 import AddTodo from 'components/Todo/AddTodo';
 import { getTodos } from 'utils/remotes';
@@ -10,6 +10,7 @@ import { getTodos } from 'utils/remotes';
 export default function TodoListPage() {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
+  console.log(todos);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -25,15 +26,20 @@ export default function TodoListPage() {
     }
   }, [navigate]);
 
+  const deleteTodos = (id: number) => {
+    const index = todos.findIndex(todo => todo.id === id);
+    const nextTodos = [...todos];
+    nextTodos.splice(index, 1);
+    setTodos(() => nextTodos);
+  };
+
   return (
     <>
       <Title>todos</Title>
-      <Spacing size={30} />
       <AddTodo setTodos={setTodos} />
-      <Spacing size={30} />
       <ul className="ul">
         {todos.map(({ id, isCompleted, todo }) => (
-          <TodoItem key={id} isCompleted={isCompleted} todo={todo} />
+          <TodoItem key={id} id={id} isCompleted={isCompleted} todo={todo} deleteTodos={deleteTodos} />
         ))}
       </ul>
     </>

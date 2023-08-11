@@ -1,14 +1,15 @@
-import { css } from '@emotion/react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { JWT_KEY } from 'utils/constants';
 
 export default function Header() {
-  const [jwtToken] = useState<string | null>(localStorage.getItem('jwt-token'));
+  const [jwtToken] = useState<string | null>(localStorage.getItem(JWT_KEY));
   const navigate = useNavigate();
 
   const handleLogout = () => {
     if (jwtToken) {
-      localStorage.removeItem('jwt-token');
+      localStorage.removeItem(JWT_KEY);
       navigate('/signin');
       window.location.reload();
     }

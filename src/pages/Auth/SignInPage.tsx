@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
 import { signin } from 'utils/remotes';
+import { JWT_KEY, INITIAL_AUTH } from 'utils/constants';
 import { AuthForm } from 'types';
 
 export default function SignInPage() {
   const navigate = useNavigate();
-  const [form, setForm] = useState<AuthForm>({
-    email: '',
-    password: '',
-  });
+  const [form, setForm] = useState<AuthForm>(INITIAL_AUTH);
   const { isValid } = useValidation(form);
   const isDisabled = isValid.isEmail && isValid.isPassword ? false : true;
 
@@ -20,7 +18,7 @@ export default function SignInPage() {
     alert(message);
 
     if (statusCode === 201) {
-      localStorage.setItem('jwt-token', accessToken);
+      localStorage.setItem(JWT_KEY, accessToken);
       navigate('/todo');
       window.location.reload();
     }

@@ -5,6 +5,7 @@ import TodoItem from 'components/Todo/TodoItem';
 import AddTodo from 'components/Todo/AddTodo';
 import EditTodoItem from 'components/Todo/EditTodoItem';
 import { getTodos, deleteTodo, updateTodo } from 'utils/remotes';
+import { JWT_KEY } from 'utils/constants';
 import type { TodoType } from 'types';
 
 export default function TodoListPage() {
@@ -21,7 +22,7 @@ export default function TodoListPage() {
   }, []);
 
   useEffect(() => {
-    if (!localStorage.getItem('jwt-token')) {
+    if (!localStorage.getItem(JWT_KEY)) {
       navigate(`/signin`);
     }
   }, [navigate]);

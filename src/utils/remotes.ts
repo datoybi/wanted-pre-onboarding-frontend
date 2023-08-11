@@ -28,3 +28,20 @@ export async function signin(email: string, password: string) {
   }
   return { statusCode: 401, message: '잘못된 로그인 정보입니다.' };
 }
+
+export async function createTodo(todo: string) {
+  const data = await http.post(
+    `todos`,
+    {
+      todo,
+    },
+    { headers: { Authorization: `Bearer ${localStorage.getItem('jwt-token')}`, 'Content-Type': `application/json` } }
+  );
+
+  console.log(data);
+}
+
+export async function getTodos() {
+  const data = await http.get(`todos`, { headers: { Authorization: `Bearer ${localStorage.getItem('jwt-token')}` } });
+  return data;
+}

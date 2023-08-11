@@ -1,16 +1,27 @@
-import { useEffect, useState } from 'react';
+//@ts-nocheck
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Title, Spacing, Button } from 'components/UI';
+import { Title, Spacing } from 'components/UI';
 import TodoItem from 'components/Todo/TodoItem';
+import AddTodo from 'components/Todo/AddTodo';
+import { getTodos } from 'utils/remotes';
 
 export default function TodoListPage() {
   const navigate = useNavigate();
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const data = await getTodos();
+      setTodos(() => data);
+    };
+    fetchTodos();
+  }, []);
 
   useEffect(() => {
     if (!localStorage.getItem('jwt-token')) {
       navigate(`/signin`);
-      return;
     }
   }, [navigate]);
 
@@ -18,28 +29,12 @@ export default function TodoListPage() {
     <>
       <Title>todos</Title>
       <Spacing size={30} />
-      <form className="form">
-        <input type="text" data-testid="new-todo-input" className="input" />
-        <Button data-testid="new-todo-add-button" size="big">
-          추가
-        </Button>
-      </form>
+      <AddTodo />
       <Spacing size={30} />
       <ul className="ul">
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
+        {todos.map(({ id, isCompleted, todo }) => (
+          <TodoItem key={id} isCompleted={isCompleted} todo={todo} />
+        ))}
       </ul>
     </>
   );

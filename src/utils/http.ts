@@ -7,8 +7,8 @@ const axios = Axios.create({
 });
 
 export const http = {
-  get: function get<Response = unknown>(url: string) {
-    return axios.get<Response>(url).then(res => res.data);
+  get: function get<Response = unknown>(url: string, config?: AxiosRequestConfig) {
+    return axios.get<Response>(url, config).then(res => res.data);
   },
 
   post: function post<Request = any, Response = unknown>(url: string, data?: Request, config?: AxiosRequestConfig) {

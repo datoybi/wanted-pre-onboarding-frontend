@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { css } from '@emotion/react';
 import { Button } from 'components/UI';
 
-export default function TodoItem() {
+export default function TodoItem({ isCompleted, todo }: any) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const handleUpdate = () => {
@@ -12,8 +12,13 @@ export default function TodoItem() {
   const showTodoElement = (
     <>
       <label>
-        <input type="checkbox" className="checkbox" onClick={() => setIsDone(prev => !prev)} />
-        <span className={isDone ? 'done' : ''}>TODO 1</span>
+        <input
+          type="checkbox"
+          className="checkbox"
+          onClick={() => setIsDone(prev => !prev)}
+          defaultChecked={isCompleted}
+        />
+        <span className={isDone ? 'done' : ''}>{todo}</span>
       </label>
       <div>
         <Button data-testid="modify-button" type="light" onClick={handleUpdate}>
@@ -31,9 +36,10 @@ export default function TodoItem() {
       <input
         type="text"
         data-testid="modify-input"
-        defaultValue="TODO 1"
+        defaultValue={todo}
         css={css`
-          width: 60%;
+          width: 50%;
+          margin-left: 40px;
         `}
       />
       <div>

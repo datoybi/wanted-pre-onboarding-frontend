@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Title } from 'components/UI';
 import TodoItem from 'components/Todo/TodoItem';
 import AddTodo from 'components/Todo/AddTodo';
-import EditTodoItem from 'components/Todo/EditTodoItem';
 import { getTodos, deleteTodo, updateTodo } from 'utils/remotes';
 import { JWT_KEY } from 'utils/constants';
 import type { TodoType } from 'types';
 
 export default function TodoListPage() {
   const navigate = useNavigate();
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [todos, setTodos] = useState<TodoType[]>([]);
 
   useEffect(() => {
@@ -48,29 +46,16 @@ export default function TodoListPage() {
       <Title>todos</Title>
       <AddTodo setTodos={setTodos} />
       <ul className="ul">
-        {todos.map(({ id, isCompleted, todo }: TodoType) =>
-          isUpdate ? (
-            <EditTodoItem
-              key={id}
-              id={id}
-              isCompleted={isCompleted}
-              todo={todo}
-              deleteTodos={deleteTodos}
-              updateTodos={updateTodos}
-              setIsUpdate={setIsUpdate}
-            />
-          ) : (
-            <TodoItem
-              key={id}
-              id={id}
-              isCompleted={isCompleted}
-              todo={todo}
-              deleteTodos={deleteTodos}
-              updateTodos={updateTodos}
-              setIsUpdate={setIsUpdate}
-            />
-          )
-        )}
+        {todos.map(({ id, isCompleted, todo }: TodoType) => (
+          <TodoItem
+            key={id}
+            id={id}
+            isCompleted={isCompleted}
+            todo={todo}
+            deleteTodos={deleteTodos}
+            updateTodos={updateTodos}
+          />
+        ))}
       </ul>
     </>
   );

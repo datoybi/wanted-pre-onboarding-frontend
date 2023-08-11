@@ -38,7 +38,7 @@ export default function TodoItem({ isCompleted, todo }: any) {
         data-testid="modify-input"
         defaultValue={todo}
         css={css`
-          width: 50%;
+          width: 45%;
           margin-left: 40px;
         `}
       />
@@ -46,7 +46,7 @@ export default function TodoItem({ isCompleted, todo }: any) {
         <Button type="light" data-testid="submit-button" onClick={handleUpdate}>
           제출
         </Button>
-        <Button data-testid="cancel-button" type="danger">
+        <Button data-testid="cancel-button" type="danger" onClick={() => setIsUpdate(false)}>
           취소
         </Button>
       </div>

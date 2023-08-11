@@ -38,7 +38,7 @@ export async function createTodo(todo: string) {
     { headers: { Authorization: `Bearer ${localStorage.getItem('jwt-token')}`, 'Content-Type': `application/json` } }
   );
 
-  console.log(data);
+  return data;
 }
 
 export async function getTodos() {

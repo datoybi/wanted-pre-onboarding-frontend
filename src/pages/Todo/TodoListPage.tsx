@@ -29,7 +29,7 @@ export default function TodoListPage() {
     <>
       <Title>todos</Title>
       <Spacing size={30} />
-      <AddTodo />
+      <AddTodo setTodos={setTodos} />
       <Spacing size={30} />
       <ul className="ul">
         {todos.map(({ id, isCompleted, todo }) => (

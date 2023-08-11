@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Button } from 'components/UI';
 import { createTodo } from 'utils/remotes';
 
-export default function AddTodo() {
+export default function AddTodo({ setTodos }: any) {
   const [newTodo, setNewTodo] = useState('');
 
   const handleAddTodo = async (event: any) => {
     event.preventDefault();
-    await createTodo(newTodo);
+    const todos = await createTodo(newTodo);
+    setTodos((prev: any) => [...prev, todos]);
     setNewTodo('');
   };
 

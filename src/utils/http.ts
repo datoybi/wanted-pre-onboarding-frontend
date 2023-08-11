@@ -21,4 +21,11 @@ export const http = {
       .then(res => res.data)
       .catch(e => e.response.data);
   },
+
+  put: function put<Request = any, Response = unknown>(url: string, data?: Request, config?: AxiosRequestConfig) {
+    return axios
+      .put<Response>(url, data, config)
+      .then(res => res.data)
+      .catch(e => e.response.data);
+  },
 };

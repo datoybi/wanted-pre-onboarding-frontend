@@ -53,3 +53,18 @@ export async function deleteTodo(id: string) {
   console.log(data);
   return data;
 }
+
+export async function updateTodo(id: string, todo: string, isCompleted: boolean) {
+  const data = await http.put(
+    `/todos/${id}`,
+    {
+      todo,
+      isCompleted,
+    },
+    {
+      headers: { Authorization: `Bearer ${localStorage.getItem('jwt-token')}` },
+    }
+  );
+  console.log(data);
+  return data;
+}

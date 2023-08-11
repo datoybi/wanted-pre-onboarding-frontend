@@ -6,8 +6,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+header ul {
+  display: flex;
+  justify-content: space-evenly;
+  width: 300px;
+  align-items: center;
+}
+
 input:focus {
   outline: none;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+button:disabled,
+button[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+button:hover:enabled {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .input {
@@ -22,13 +52,6 @@ input:focus {
   width: 99%;
 }
 
-header ul {
-  display: flex;
-  justify-content: space-evenly;
-  width: 300px;
-  align-items: center;
-}
-
 .ul {
   width: 70%;
   max-width: 700px;
@@ -39,19 +62,6 @@ header ul {
 .done {
   text-decoration: line-through;
   opacity: 0.5;
-}
-
-ul {
-  padding: 0;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
 }
 
 .li {
@@ -90,16 +100,6 @@ a {
   font-size: 1rem;
 }
 
-button:disabled,
-button[disabled] {
-  opacity: 0.3;
-  cursor: default;
-}
-
-button:hover:enabled {
-  background: rgba(0, 0, 0, 0.05);
-}
-
 .button__content {
   display: flex;
   align-items: center;
@@ -131,7 +131,3 @@ button:hover:enabled {
   margin: 0.3rem;
   font-size: 0.8rem;
 }
-/* 
-.disabled {
-
-} */

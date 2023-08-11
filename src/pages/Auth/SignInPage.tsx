@@ -3,22 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
 import { signin } from 'utils/remotes';
+import { JWT_KEY, INITIAL_AUTH } from 'utils/constants';
+import { AuthForm } from 'types';
 
 export default function SignInPage() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [form, setForm] = useState<AuthForm>(INITIAL_AUTH);
   const { isValid } = useValidation(form);
   const isDisabled = isValid.isEmail && isValid.isPassword ? false : true;
 
   const handleOnSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const { statusCode, message } = await signin(form.email, form.password);
+    const { statusCode, message, accessToken } = await signin(form.email, form.password);
     alert(message);
+
     if (statusCode === 201) {
+      localStorage.setItem(JWT_KEY, accessToken);
       navigate('/todo');
+      window.location.reload();
     }
   };
 

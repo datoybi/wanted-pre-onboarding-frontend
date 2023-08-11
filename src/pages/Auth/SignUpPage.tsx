@@ -1,16 +1,14 @@
-// @ts-nocheck
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
 import { signup } from 'utils/remotes';
+import { INITIAL_AUTH } from 'utils/constants';
+import { AuthForm } from 'types';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [form, setForm] = useState<AuthForm>(INITIAL_AUTH);
   const { isValid } = useValidation(form);
   const isDisabled = isValid.isEmail && isValid.isPassword ? false : true;
 

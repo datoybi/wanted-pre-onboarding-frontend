@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
 import { signin } from 'utils/remotes';
+import { AuthForm } from 'types';
 
 export default function SignInPage() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<AuthForm>({
     email: '',
     password: '',
   });
@@ -17,6 +18,7 @@ export default function SignInPage() {
     e.preventDefault();
     const { statusCode, message, accessToken } = await signin(form.email, form.password);
     alert(message);
+
     if (statusCode === 201) {
       localStorage.setItem('jwt-token', accessToken);
       navigate('/todo');

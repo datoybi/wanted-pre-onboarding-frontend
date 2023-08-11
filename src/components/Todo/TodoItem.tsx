@@ -1,25 +1,23 @@
-import { useState, useRef } from 'react';
-import { css } from '@emotion/react';
+import { useState } from 'react';
 import { Button } from 'components/UI';
+import type { TodoType } from 'types';
 
-export default function TodoItem({ id, isCompleted, todo, deleteTodos, updateTodos }: any) {
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [isDone, setIsDone] = useState(isCompleted);
-  const inputRef = useRef<HTMLInputElement>(null);
+interface TodoItemProps extends TodoType {
+  updateTodos: ({ id, todo, isCompleted }: { id: number | undefined; todo: string; isCompleted: boolean }) => void;
+  deleteTodos: (id: number) => void;
+  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const handleUpdate = () => {
-    const nextTodo = inputRef.current?.value;
-    updateTodos({ id, todo: nextTodo, isCompleted });
-    setIsUpdate(prev => !prev);
-  };
+export default function TodoItem({ id, isCompleted, todo, deleteTodos, updateTodos, setIsUpdate }: TodoItemProps) {
+  const [isDone, setIsDone] = useState<boolean>(isCompleted);
 
   const handleIsDone = () => {
     updateTodos({ id, todo, isCompleted: !isCompleted });
-    setIsDone((prev: any) => !prev);
+    setIsDone(prev => !prev);
   };
 
-  const showTodoElement = (
-    <>
+  return (
+    <li className="li">
       <label>
         <input type="checkbox" className="checkbox" onClick={handleIsDone} defaultChecked={isCompleted} />
         <span className={isDone ? 'done' : ''}>{todo}</span>
@@ -28,35 +26,10 @@ export default function TodoItem({ id, isCompleted, todo, deleteTodos, updateTod
         <Button data-testid="modify-button" type="light" onClick={() => setIsUpdate(prev => !prev)}>
           수정
         </Button>
-        <Button data-testid="delete-button" type="danger" onClick={() => deleteTodos(id)}>
+        <Button data-testid="delete-button" type="danger" onClick={() => deleteTodos(id ?? 0)}>
           삭제
         </Button>
       </div>
-    </>
+    </li>
   );
-
-  const editTodoElement = (
-    <>
-      <input
-        type="text"
-        data-testid="modify-input"
-        defaultValue={todo}
-        ref={inputRef}
-        css={css`
-          width: 45%;
-          margin-left: 40px;
-        `}
-      />
-      <div>
-        <Button type="light" data-testid="submit-button" onClick={handleUpdate}>
-          제출
-        </Button>
-        <Button data-testid="cancel-button" type="danger" onClick={() => setIsUpdate(false)}>
-          취소
-        </Button>
-      </div>
-    </>
-  );
-
-  return <li className="li">{isUpdate ? editTodoElement : showTodoElement}</li>;
 }

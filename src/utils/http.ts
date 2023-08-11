@@ -1,4 +1,4 @@
-import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 
 const BASE_URL = 'https://www.pre-onboarding-selection-task.shop/';
 
@@ -8,11 +8,17 @@ const axios = Axios.create({
 
 export const http = {
   get: function get<Response = unknown>(url: string, config?: AxiosRequestConfig) {
-    return axios.get<Response>(url, config).then(res => res.data);
+    return axios
+      .get<Response>(url, config)
+      .then(res => res.data)
+      .catch(e => e.response.data);
   },
 
   delete: function remove<Response = unknown>(url: string, config?: AxiosRequestConfig) {
-    return axios.delete<Response>(url, config).then(res => res.data);
+    return axios
+      .delete<Response>(url, config)
+      .then(res => res.data)
+      .catch(e => e.response.data);
   },
 
   post: function post<Request = any, Response = unknown>(url: string, data?: Request, config?: AxiosRequestConfig) {

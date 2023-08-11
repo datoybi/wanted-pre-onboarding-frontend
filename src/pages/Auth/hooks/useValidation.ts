@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
-interface FormProps {
-  email: string;
-  password: string;
-}
+import { AuthForm } from 'types';
 
-export default function useValidation({ email, password }: FormProps) {
+export default function useValidation({ email, password }: AuthForm) {
   const [isValid, setIsValid] = useState({
     isEmail: false,
     isPassword: false,

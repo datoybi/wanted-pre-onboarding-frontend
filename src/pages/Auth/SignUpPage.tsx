@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import useValidation from './hooks/useValidation';
 import { Title, Spacing, Button } from 'components/UI';
 import { signup } from 'utils/remotes';
+import { AuthForm } from 'types';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<AuthForm>({
     email: '',
     password: '',
   });

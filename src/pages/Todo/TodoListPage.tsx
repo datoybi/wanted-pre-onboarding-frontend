@@ -1,17 +1,16 @@
-//@ts-nocheck
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { Title } from 'components/UI';
 import TodoItem from 'components/Todo/TodoItem';
 import AddTodo from 'components/Todo/AddTodo';
-import { getTodos } from 'utils/remotes';
-import { deleteTodo, updateTodo } from 'utils/remotes';
+import EditTodoItem from 'components/Todo/EditTodoItem';
+import { getTodos, deleteTodo, updateTodo } from 'utils/remotes';
+import type { TodoType } from 'types';
 
 export default function TodoListPage() {
   const navigate = useNavigate();
-  const [todos, setTodos] = useState([]);
-  console.log(todos);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [todos, setTodos] = useState<TodoType[]>([]);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -29,13 +28,13 @@ export default function TodoListPage() {
 
   const deleteTodos = async (id: number) => {
     await deleteTodo(id);
-    const index = todos.findIndex(todo => todo.id === id);
+    const index = todos.findIndex((todo: TodoType) => todo.id === id);
     const nextTodos = [...todos];
     nextTodos.splice(index, 1);
     setTodos(() => nextTodos);
   };
 
-  const updateTodos = async ({ id, todo, isCompleted }) => {
+  const updateTodos = async ({ id, todo, isCompleted }: TodoType) => {
     await updateTodo(id, todo, isCompleted);
     const index = todos.findIndex(todo => todo.id === id);
     const nextTodos = [...todos];
@@ -48,16 +47,29 @@ export default function TodoListPage() {
       <Title>todos</Title>
       <AddTodo setTodos={setTodos} />
       <ul className="ul">
-        {todos.map(({ id, isCompleted, todo }) => (
-          <TodoItem
-            key={id}
-            id={id}
-            isCompleted={isCompleted}
-            todo={todo}
-            deleteTodos={deleteTodos}
-            updateTodos={updateTodos}
-          />
-        ))}
+        {todos.map(({ id, isCompleted, todo }: TodoType) =>
+          isUpdate ? (
+            <EditTodoItem
+              key={id}
+              id={id}
+              isCompleted={isCompleted}
+              todo={todo}
+              deleteTodos={deleteTodos}
+              updateTodos={updateTodos}
+              setIsUpdate={setIsUpdate}
+            />
+          ) : (
+            <TodoItem
+              key={id}
+              id={id}
+              isCompleted={isCompleted}
+              todo={todo}
+              deleteTodos={deleteTodos}
+              updateTodos={updateTodos}
+              setIsUpdate={setIsUpdate}
+            />
+          )
+        )}
       </ul>
     </>
   );

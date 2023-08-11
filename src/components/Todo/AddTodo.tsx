@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { Button, Spacing } from 'components/UI';
 import { createTodo } from 'utils/remotes';
+import type { TodoType } from 'types';
 
-export default function AddTodo({ setTodos }: any) {
+interface AddTodoProps {
+  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
+}
+
+export default function AddTodo({ setTodos }: AddTodoProps) {
   const [newTodo, setNewTodo] = useState('');
 
-  const handleAddTodo = async (event: any) => {
+  const handleAddTodo = async (event: React.MouseEvent) => {
     event.preventDefault();
     const todos = await createTodo(newTodo);
-    setTodos((prev: any) => [...prev, todos]);
+    setTodos(prev => [...prev, todos]);
     setNewTodo('');
   };
 

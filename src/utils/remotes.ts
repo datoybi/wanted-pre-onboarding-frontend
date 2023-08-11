@@ -24,8 +24,7 @@ export async function signin(email: string, password: string) {
   );
 
   if (data.access_token) {
-    localStorage.setItem('jwt-token', data.access_token);
-    return { statusCode: 201, message: '로그인되었습니다.' };
+    return { statusCode: 201, message: '로그인되었습니다.', accessToken: data.access_token };
   }
   return { statusCode: 401, message: '잘못된 로그인 정보입니다.' };
 }

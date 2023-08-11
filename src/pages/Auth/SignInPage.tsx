@@ -15,10 +15,12 @@ export default function SignInPage() {
 
   const handleOnSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const { statusCode, message } = await signin(form.email, form.password);
+    const { statusCode, message, accessToken } = await signin(form.email, form.password);
     alert(message);
     if (statusCode === 201) {
+      localStorage.setItem('jwt-token', accessToken);
       navigate('/todo');
+      window.location.reload();
     }
   };
 
